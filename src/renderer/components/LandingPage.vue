@@ -19,10 +19,8 @@
           </p>
           <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
         </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
+        <div>
+          <canvas id="test"></canvas>
         </div>
       </div>
     </main>
@@ -31,10 +29,17 @@
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
-
+  import ip from 'ip'
+  const QRCode = require('qrcode')
   export default {
     name: 'landing-page',
     components: { SystemInformation },
+    mounted () {
+      QRCode.toCanvas(document.getElementById('test'), 'http://' + ip.address() + ':8088', function (error) {
+        if (error) console.error(error)
+        console.log('success!')
+      })
+    },
     methods: {
       open (link) {
         this.$electron.shell.openExternal(link)
