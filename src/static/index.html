@@ -1,10 +1,21 @@
 <html>
 <body>
-  adb12312
+  <input type="file" id="files" text="openfile" />
+  <input type="button" text="send" onclick="send()"/>
 </body>
 <script type="text/javascript">
-
-const ws = new WebSocket('ws://192.168.2.243:8089');
+function send(){
+  let files = document.getElementById('files').files;
+  let file = files[0];
+  let reader = new FileReader();
+  reader.onloadend = (evt) => {
+    let data = {name:file.name}
+    ws.send(JSON.stringify(data))
+    ws.send(evt.target.result)
+  }
+  reader.readAsArrayBuffer(file);
+}
+const ws = new WebSocket(`ws://${location.hostname}:8089`);
 
 ws.onopen = function () {
   console.log('connected');

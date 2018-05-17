@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow } from 'electron'
 require('./staticServer')
+// require('./ws/ws')
 
 /**
  * Set `__static` path to static files in production
