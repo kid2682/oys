@@ -8,9 +8,12 @@ export default new Router({
     {
       path: '/',
       name: 'landing-page',
+      component: require('@/components/LandingPage').default
+    }, {
+      path: '/imageList',
+      name: 'imageList-page',
       component: require('@/components/ImageList').default
-    },
-    {
+    }, {
       path: '*',
       redirect: '/'
     }

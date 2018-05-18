@@ -2,7 +2,7 @@
 
 import { app, BrowserWindow } from 'electron'
 require('./staticServer')
-// require('./ws/ws')
+require('./ws/ws')
 
 /**
  * Set `__static` path to static files in production
@@ -24,7 +24,10 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
-    width: 1000
+    width: 1000,
+    webPreferences: {
+      webSecurity: false
+    }
   })
 
   mainWindow.loadURL(winURL)

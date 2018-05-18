@@ -26,7 +26,12 @@
     "postinstall": "npm run lint:fix"
   },
   "dependencies": {
+    "antd": "^3.5.2",
+    "antd-init": "^2.0.6",
+    "aws-sdk": "^2.242.1",
     "axios": "^0.16.1",
+    "chokidar": "^2.0.3",
+    "global": "^4.3.2",
     "ip": "^1.1.5",
     "node-static": "^0.7.10",
     "npm": "^6.0.1",
