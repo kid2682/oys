@@ -9,7 +9,7 @@ const uploadPath = path.join(__dirname, '..', '..', 'static', 'upload')
 
 if (!fs.existsSync(uploadPath)) {
   console.log(`mkdir:${uploadPath}`)
-  fs.mkdirSync(uploadPath)
+  // fs.mkdirSync(uploadPath)
 }
 wss.on('connection', function connection (ws) {
   let data
