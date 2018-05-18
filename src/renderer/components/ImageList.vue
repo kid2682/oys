@@ -6,14 +6,14 @@
   </div>
 </template>
 <script>
+  import { remote } from 'electron'
   import ip from 'ip'
   import 'viewerjs/dist/viewer.css'
   import Viewer from 'v-viewer'
   import Vue from 'vue'
   import chokidar from 'chokidar'
   const path = require('path')
-  let imgPath = path.join(__dirname, '..', '..', 'static', 'img')
-  let http = `http://${ip.address()}:8088/`
+  let http = `http://${ip.address()}:8087/`
   Vue.use(Viewer)
   export default {
     data () {
@@ -21,13 +21,16 @@
       return {images}
     },
     mounted () {
+      let imgPath = path.join(remote.app.getPath('pictures'), 'oys')
       let watcher = chokidar.watch(imgPath)
       console.log('mounted', watcher)
       watcher.on('add', path => {
-        console.log(`${http}${path.replace('src/static/', '')}`)
-        Vue.nextTick(() => {
-          this.images.unshift(`${http}${path.replace('src/static/', '')}`)
-        })
+        // if()
+        if (path.match(/.(jpg|jpeg|png|bmg)$/)) {
+          Vue.nextTick(() => {
+            this.images.unshift(`${http}${path.replace(imgPath, '')}`)
+          })
+        }
       })
     }
   }

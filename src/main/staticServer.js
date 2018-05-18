@@ -1,8 +1,21 @@
+import { app } from 'electron'
 const staticServer = require('node-static')
 const path = require('path')
-let file = new staticServer.Server(path.join(__dirname, '..', 'static'))
+let pictures = new staticServer.Server(path.join(app.getPath('pictures'), 'oys'))
+let staticPath = path.join(__dirname, '..', '..', 'dist', 'static')
+console.log(app.isPackaged)
+if (app.isPackaged) {
+  staticPath = path.join(app.getAppPath(), 'static')
+}
+console.log(staticPath)
+let html = new staticServer.Server(staticPath)
 require('http').createServer(function (request, response) {
   request.addListener('end', function () {
-    file.serve(request, response)
+    html.serve(request, response)
   }).resume()
 }).listen(8088)
+require('http').createServer(function (request, response) {
+  request.addListener('end', function () {
+    pictures.serve(request, response)
+  }).resume()
+}).listen(8087)
